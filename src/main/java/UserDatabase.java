@@ -16,11 +16,11 @@ public class UserDatabase {
     }
 
     public static void checkUserExistance(String uuid) throws SQLException {
-        Connection connection = DriverManager.getConnection(url, user, password);
-        Statement statement = connection.createStatement();
-        String query = "SELECT UUID FROM userTable where UUID = (uuid)"; // замените 'your_table_name' на имя вашей таблицы
+            Connection connection = DriverManager.getConnection(url, user, password);
+            Statement statement = connection.createStatement();
+            String query = "SELECT UUID FROM userTable where UUID ='" + uuid + "'"; // замените 'your_table_name' на имя вашей таблицы
         ResultSet resultSet = statement.executeQuery(query);
-        System.out.println("Добро пожаловать!");
+            // TODO Проверка не срабатывает, но передается корректно введенный UUID
     }
 
     public static void main(String[] args) throws SQLException {

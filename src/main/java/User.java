@@ -16,7 +16,7 @@ public class User {
 
     public static String createShortUrl(String longUrl, int counter){
         shortUrl = fixURL + "357";
-        System.out.println("Ваша сокращенная ссылка равняется " + shortUrl + "Счетчик ваших переходов установлен на " + counter);
+        System.out.println("Ваша сокращенная ссылка равняется " + shortUrl + " Счетчик ваших переходов установлен на " + counter);
         return shortUrl;
     }
 
