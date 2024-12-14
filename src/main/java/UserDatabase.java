@@ -19,9 +19,9 @@ public class UserDatabase {
             Statement statement = connection.createStatement();
             String query = "SELECT UUID FROM userTable WHERE EXISTS (SELECT UUID FROM userTable WHERE UUID = '" + uuid + "')"; // замените 'your_table_name' на имя вашей таблицы
             ResultSet resultSet = statement.executeQuery(query);
-            // TODO Проверка не срабатывает, но передается корректно введенный UUID
     }
     */
+
     public static void checkUserExistance(String uuid) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
         String query = "SELECT UUID FROM userTable WHERE UUID = ?";
@@ -39,6 +39,7 @@ public class UserDatabase {
             e.printStackTrace();
         }
     }
+
 
     /* public static void addingUserInfoToTheTable (String uuid, String longUrl, String shortUrl, int counter) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);

@@ -12,6 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         System.out.println("Привет! Вы уже является нашим пользователем или вам нужно зарегистрироваться?");
         System.out.println("1. Я пользователь - введу UUID");
         System.out.println("2. Я новенький - зарегистрируйте меня");
