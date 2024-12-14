@@ -3,12 +3,12 @@ import java.util.Scanner;
 
 public class Main {
 
-   public static int choiceValue;
-   public static int secondChoiceValue;
-   public static String userName;
-   public static String userUUID;
-   public static String longUrl;
-   public static String shortUrl;
+    public static int choiceValue;
+    public static int secondChoiceValue;
+    public static String userName;
+    public static String userUUID;
+    public static String longUrl;
+    public static String shortUrl;
 
     public static void main(String[] args) {
 
@@ -17,20 +17,21 @@ public class Main {
         System.out.println("2. Я новенький - зарегистрируйте меня");
         Scanner scanner = new Scanner(System.in);
         choiceValue = scanner.nextInt();
-
-        switch (choiceValue){
-            case(1): {
-                System.out.println("Введи ранее выданный тебе UUID");
-                userUUID = scanner.next();
-                // TODO Придумать регуляроное выражение, потому что сейчас это строка и пускает по любому символу
-                try {
-                    UserDatabase.checkUserExistance(userUUID);
+            switch (choiceValue) {
+                case (1): {
+                    System.out.println("Введи ранее выданный тебе UUID");
+                    userUUID = scanner.next();
+                    // TODO Придумать регуляроное выражение, потому что сейчас это строка и пускает по любому символу
+                    try {
+                        UserDatabase.checkUserExistance(userUUID);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
                 }
-                catch (SQLException e){
-                    throw new RuntimeException(e);
-                }
+                // TODO Проверка на наличие записи теперь есть, но даже при наличии ошибки идем дальше по процессу -> нужно понять как этого избежать
 
-                    System.out.println("У вас уже есть добавленные ссылки?");
+                   /* System.out.println("У вас уже есть добавленные ссылки?");
                 while (true) {
                     System.out.println("1. Введу ранее добавленную ссылку");
                     System.out.println("2. Мне нужно сгенерировать ссылку");
@@ -49,18 +50,19 @@ public class Main {
                     }
                 }
             }
-
-            case(2): {
-                String userUUID = User.createUserUuid(userName);
-                try {
-                    UserDatabase.addUserToTheTable(userUUID);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+*/
+                case (2): {
+                    String userUUID = User.createUserUuid(userName);
+                    try {
+                        UserDatabase.addUserToTheTable(userUUID);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
                 }
-                break;
+                default:
+                    ;
             }
-            default: ;
-        }
 
+        }
     }
-}

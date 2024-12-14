@@ -6,22 +6,51 @@ public class UserDatabase {
     public static final String user = "user";
     public static final String password = "user";
 
-    public static String addUserToTheTable(String uuid) throws SQLException {
+    public static void addUserToTheTable(String uuid) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
         PreparedStatement pstmt = connection.prepareStatement("INSERT INTO userTable (UUID) VALUES (?)");
         pstmt.setString(1, uuid);
         pstmt.executeUpdate();
         connection.close();
-        return uuid;
     }
 
-    public static void checkUserExistance(String uuid) throws SQLException {
+    /* public static void checkUserExistance(String uuid) throws SQLException {
             Connection connection = DriverManager.getConnection(url, user, password);
             Statement statement = connection.createStatement();
-            String query = "SELECT UUID FROM userTable where UUID ='" + uuid + "'"; // замените 'your_table_name' на имя вашей таблицы
-        ResultSet resultSet = statement.executeQuery(query);
+            String query = "SELECT UUID FROM userTable WHERE EXISTS (SELECT UUID FROM userTable WHERE UUID = '" + uuid + "')"; // замените 'your_table_name' на имя вашей таблицы
+            ResultSet resultSet = statement.executeQuery(query);
             // TODO Проверка не срабатывает, но передается корректно введенный UUID
     }
+    */
+    public static void checkUserExistance(String uuid) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, user, password);
+        String query = "SELECT UUID FROM userTable WHERE UUID = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, uuid);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                String foundUuid = rs.getString("UUID");
+                System.out.println("Найден UUID: " + foundUuid);
+            } else {
+                System.out.println("Такого пользователя не знаем, простите. Попробуйте зарегистрироваться");
+                // Здесь можно выбросить исключение или вернуть ошибку
+            }
+        } catch (SQLException | RuntimeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* public static void addingUserInfoToTheTable (String uuid, String longUrl, String shortUrl, int counter) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, user, password);
+        PreparedStatement pstmt = connection.prepareStatement("INSERT INTO userTable (UUID, LONGURL, SHORTULR, COUNTER) VALUES (?, ?, ?, ?)");
+        pstmt.setString(1, uuid);
+        pstmt.setString(2, longUrl);
+        pstmt.setString(3, shortUrl);
+        pstmt.setString(4, String.valueOf(counter));
+        pstmt.executeUpdate();
+        connection.close();
+    }
+*/
 
     public static void main(String[] args) throws SQLException {
     /*  Connection connection = DriverManager.getConnection(url, user, password);
