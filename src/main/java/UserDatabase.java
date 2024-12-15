@@ -22,7 +22,7 @@ public class UserDatabase {
     }
     */
 
-    public static void checkUserExistance(String uuid) throws SQLException {
+    public static boolean checkUserExistance(String uuid) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
         String query = "SELECT UUID FROM userTable WHERE UUID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -31,13 +31,15 @@ public class UserDatabase {
             if (rs.next()) {
                 String foundUuid = rs.getString("UUID");
                 System.out.println("Найден UUID: " + foundUuid);
+                return true;
             } else {
                 System.out.println("Такого пользователя не знаем, простите. Попробуйте зарегистрироваться");
-                // Здесь можно выбросить исключение или вернуть ошибку
+                return false;
             }
         } catch (SQLException | RuntimeException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
 

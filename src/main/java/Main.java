@@ -24,7 +24,12 @@ public class Main {
                     userUUID = scanner.next();
                     // TODO Придумать регуляроное выражение, потому что сейчас это строка и пускает по любому символу
                     try {
-                        UserDatabase.checkUserExistance(userUUID);
+                        if (UserDatabase.checkUserExistance(userUUID) == true){
+                            System.out.println("Ура");
+                        }
+                        else {
+                            System.out.println("Не ура");
+                        };
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
