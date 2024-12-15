@@ -30,10 +30,7 @@ public class UserDatabase {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 String foundUuid = rs.getString("UUID");
-                System.out.println("Найден UUID: " + foundUuid);
-                return true;
             } else {
-                System.out.println("Такого пользователя не знаем, простите. Попробуйте зарегистрироваться");
                 return false;
             }
         } catch (SQLException | RuntimeException e) {
@@ -43,9 +40,9 @@ public class UserDatabase {
     }
 
 
-    /* public static void addingUserInfoToTheTable (String uuid, String longUrl, String shortUrl, int counter) throws SQLException {
+    public static void addingUserInfoToTheTable (String uuid, String longUrl, String shortUrl, int counter) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
-        PreparedStatement pstmt = connection.prepareStatement("INSERT INTO userTable (UUID, LONGURL, SHORTULR, COUNTER) VALUES (?, ?, ?, ?)");
+        PreparedStatement pstmt = connection.prepareStatement("INSERT INTO userTable (UUID, LONGURL, SHORTURL, COUNTER) VALUES (?, ?, ?, ?)");
         pstmt.setString(1, uuid);
         pstmt.setString(2, longUrl);
         pstmt.setString(3, shortUrl);
@@ -53,7 +50,7 @@ public class UserDatabase {
         pstmt.executeUpdate();
         connection.close();
     }
-*/
+
 
     public static void main(String[] args) throws SQLException {
     /*  Connection connection = DriverManager.getConnection(url, user, password);
