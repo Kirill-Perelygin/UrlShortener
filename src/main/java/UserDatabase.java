@@ -51,6 +51,9 @@ public class UserDatabase {
         connection.close();
     }
 
+    // TODO создать метод, который берет ShortUrl + изменяет каунтер
+    // TODO создать метод, который проходится каждый раз при запуске PSVM и проверяет канутеры = 5 - удаляет всю строку. 
+
 
     public static void main(String[] args) throws SQLException {
     /*  Connection connection = DriverManager.getConnection(url, user, password);
