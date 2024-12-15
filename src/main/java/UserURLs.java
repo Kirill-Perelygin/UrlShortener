@@ -8,7 +8,7 @@ public class UserURLs {
     public static final String fixURL = "https://www.clck.ru/";
     public static String shortUrl;
 
-
+    // TODO придумать метод, который будет рандомно генерировать 6 знаков UPPERlowerCaSe+numbers 
     public static String createShortUrl(String longUrl){
         shortUrl = fixURL + "357";
         System.out.println("Ваша сокращенная ссылка равняется " + shortUrl);
