@@ -51,6 +51,34 @@ public class UserDatabase {
         connection.close();
     }
 
+    public static void selectAllUserUrls(String userUUID) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, user, password);
+        Statement statement = connection.createStatement();
+            PreparedStatement pstmt = connection.prepareStatement("SELECT id, SHORTURL FROM userTable WHERE UUID = ? and SHORTURL is not null");
+            pstmt.setString(1, userUUID);
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String foundUuid = rs.getString("id");
+                String shortUrl = rs.getString("SHORTURL");
+                System.out.println("Id ссылки - " + foundUuid + " а ссылка - " + shortUrl);
+    }
+    }
+
+    public static void deletSelectedUrl(String userUUID, String shortUrl) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, user, password);
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE UUID = ? AND SHORTURL = ?");
+        pstmt.setString(1, userUUID);
+        pstmt.setString(2, shortUrl);
+        pstmt.executeUpdate();
+        System.out.println("Выбранная ссылка удалена");
+        connection.close();
+    }
+
+   // public static String extractShortUrl(String shortUrl, int counter){
+
+   // }
+
     // TODO создать метод, который берет ShortUrl + изменяет каунтер
     // TODO создать метод, который вытаскивает longURL по запросу shortURL + UUID
     // TODO создать метод, который проходится каждый раз при запуске PSVM и проверяет канутеры = 5 - удаляет всю строку.

@@ -27,18 +27,21 @@ public class Main {
                 try {
                     if (UserDatabase.checkUserExistance(userUUID)) {
                         System.out.println("С вовзращением!");
-                        System.out.println("У вас уже есть добавленные ссылки?");
+                        System.out.println("Что хотите сделать?");
                         while (true) {
                             System.out.println("1. Введу ранее добавленную ссылку");
                             System.out.println("2. Мне нужно сгенерировать ссылку");
+                            System.out.println("3. Хочу узнать все свои ссылки");
+                            System.out.println("4. Удалить ранее сгенерированную ссылку");
                             secondChoiceValue = scanner.nextInt();
                             switch (secondChoiceValue) {
                                 case (1): {
                                     shortUrl = scanner.next();
+
                                     // TODO Метод, который из таблицы вытягивает полную ссылку и подставляет её в запрос
                                     // counterValue =
                                     // TODO Метод, который получает из таблицы значение каунтера.
-                                    UserURLs.visitShortUrl(shortUrl, counterValue);
+                                   // UserURLs.visitShortUrl(shortUrl, counterValue);
 
 
                                     System.out.println("Ха ха, стаб");
@@ -50,6 +53,16 @@ public class Main {
                                     shortUrl = UserURLs.createShortUrl(longUrl);
                                     counterValue = UserURLs.getCounter(0);
                                     UserDatabase.addingUserInfoToTheTable(userUUID, longUrl, shortUrl, counterValue);
+                                    break;
+                                }
+                                case (3):{
+                                    UserDatabase.selectAllUserUrls(userUUID);
+                                    break;
+                                }
+                                case (4):{
+                                    System.out.println("Введите ссылку, которую хотите удалить");
+                                    shortUrl = scanner.next();
+                                    UserDatabase.deletSelectedUrl(userUUID, shortUrl);
                                     break;
                                 }
                             }
