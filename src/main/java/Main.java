@@ -11,9 +11,8 @@ public class Main {
     public static String longUrl;
     public static String shortUrl;
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
-        UserDatabase.deleteMaxCounterRows();
         System.out.println("Привет! Вы уже является нашим пользователем или вам нужно зарегистрироваться?");
         System.out.println("1. Я пользователь - введу UUID");
         System.out.println("2. Я новенький - зарегистрируйте меня");
@@ -39,11 +38,10 @@ public class Main {
                                     shortUrl = scanner.next();
                                     longUrl = UserDatabase.getLongUrl(shortUrl);
                                     UserURLs.visitShortUrl(longUrl);
-                                   // UserURLs.visitShortUrl(longUrl);
-                                    // TODO Метод, который из таблицы вытягивает полную ссылку и подставляет её в запрос
-                                    // counterValue =
+                                    UserDatabase.counterPlus(shortUrl);
+                                    UserDatabase.deleteMaxCounterRows();
+
                                     // TODO Метод, который получает из таблицы значение каунтера.
-                                    System.out.println("Ха ха, стаб");
                                     break;
                                 }
                                 case (2): {

@@ -87,9 +87,16 @@ public class UserDatabase {
         return shortUrl;
     }
 
+    public static void counterPlus(String shortUrl) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, user, password);
+        PreparedStatement pstmt = connection.prepareStatement("UPDATE userTable SET COUNTER = COUNTER + 1 WHERE SHORTURL = ?");
+        pstmt.setString(1, shortUrl);
+        pstmt.executeUpdate();
+    }
+
     public static void deleteMaxCounterRows() throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
-        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE COUNTER = 0");
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE COUNTER >= 5");
         pstmt.executeUpdate();
         connection.close();
     }
@@ -99,12 +106,10 @@ public class UserDatabase {
    // }
 
     // TODO создать метод, который берет ShortUrl + изменяет каунтер
-    // TODO создать метод, который вытаскивает longURL по запросу shortURL + UUID
-    // TODO создать метод, который проходится каждый раз при запуске PSVM и проверяет канутеры = 5 - удаляет всю строку.
 
 
     public static void main(String[] args) throws SQLException {
-        
+
     /*  Connection connection = DriverManager.getConnection(url, user, password);
 
             // Шаг 3: Выполнить запрос SELECT
