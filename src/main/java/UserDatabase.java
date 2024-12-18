@@ -101,6 +101,9 @@ public class UserDatabase {
         connection.close();
     }
 
+    // TODO подумать о логике того, что если сгенерированная строка уже есть есть в таблице, то сгенерировать её снова -> вероятно через IF - ELSE или через WHILE с boolean
+    // TODO значением
+
    // public static String extractShortUrl(String shortUrl, int counter){
 
    // }
