@@ -37,13 +37,12 @@ public class Main {
                             switch (secondChoiceValue) {
                                 case (1): {
                                     shortUrl = scanner.next();
-
+                                    longUrl = UserDatabase.getLongUrl(shortUrl);
+                                    UserURLs.visitShortUrl(longUrl);
+                                   // UserURLs.visitShortUrl(longUrl);
                                     // TODO Метод, который из таблицы вытягивает полную ссылку и подставляет её в запрос
                                     // counterValue =
                                     // TODO Метод, который получает из таблицы значение каунтера.
-                                   // UserURLs.visitShortUrl(shortUrl, counterValue);
-
-
                                     System.out.println("Ха ха, стаб");
                                     break;
                                 }

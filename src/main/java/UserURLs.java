@@ -25,11 +25,9 @@ public class UserURLs {
         return counter;
     }
 
-    public static void visitShortUrl(String shortUrl, int counter) {
+    public static void visitShortUrl(String longUrl) {
         try {
-            Desktop.getDesktop().browse(new URI(shortUrl));
-            counter = counter + 1;
-            System.out.println("Количество совершенных переходов теперь равно: " + counter);
+            Desktop.getDesktop().browse(new URI(longUrl));
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (URISyntaxException e) {

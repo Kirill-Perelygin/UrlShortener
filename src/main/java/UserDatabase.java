@@ -62,7 +62,7 @@ public class UserDatabase {
                 String foundUuid = rs.getString("id");
                 String shortUrl = rs.getString("SHORTURL");
                 System.out.println("Id ссылки - " + foundUuid + " а ссылка - " + shortUrl);
-    }
+        }
     }
 
     public static void deletSelectedUrl(String userUUID, String shortUrl) throws SQLException {
@@ -73,6 +73,18 @@ public class UserDatabase {
         pstmt.executeUpdate();
         System.out.println("Выбранная ссылка удалена");
         connection.close();
+    }
+
+    public static String getLongUrl(String shortUrl) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, user, password);
+        PreparedStatement pstmt = connection.prepareStatement("SELECT LONGURL FROM userTable WHERE SHORTURL = ?");
+        pstmt.setString(1, shortUrl);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()){
+            String longUrl = rs.getString("LONGURL");
+            System.out.println(longUrl + " это длинная ссылка");
+        }
+        return shortUrl;
     }
 
    // public static String extractShortUrl(String shortUrl, int counter){
