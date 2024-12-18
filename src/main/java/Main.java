@@ -39,6 +39,7 @@ public class Main {
                                     longUrl = UserDatabase.getLongUrl(shortUrl);
                                     UserURLs.visitShortUrl(longUrl);
                                     UserDatabase.counterPlus(shortUrl);
+                                    // TODO добавить метод, который будет брать новый каунтер и выводить его как строку -> ваше количетсво переводов или типа того
                                     UserDatabase.deleteMaxCounterRows();
 
                                     // TODO Метод, который получает из таблицы значение каунтера.

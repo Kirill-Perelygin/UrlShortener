@@ -105,7 +105,6 @@ public class UserDatabase {
 
    // }
 
-    // TODO создать метод, который берет ShortUrl + изменяет каунтер
 
 
     public static void main(String[] args) throws SQLException {
