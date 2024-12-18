@@ -11,9 +11,9 @@ public class Main {
     public static String longUrl;
     public static String shortUrl;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
-
+        UserDatabase.deleteMaxCounterRows();
         System.out.println("Привет! Вы уже является нашим пользователем или вам нужно зарегистрироваться?");
         System.out.println("1. Я пользователь - введу UUID");
         System.out.println("2. Я новенький - зарегистрируйте меня");

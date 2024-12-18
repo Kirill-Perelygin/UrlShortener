@@ -87,6 +87,13 @@ public class UserDatabase {
         return shortUrl;
     }
 
+    public static void deleteMaxCounterRows() throws SQLException {
+        Connection connection = DriverManager.getConnection(url, user, password);
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE COUNTER = 0");
+        pstmt.executeUpdate();
+        connection.close();
+    }
+
    // public static String extractShortUrl(String shortUrl, int counter){
 
    // }
@@ -97,6 +104,7 @@ public class UserDatabase {
 
 
     public static void main(String[] args) throws SQLException {
+        
     /*  Connection connection = DriverManager.getConnection(url, user, password);
 
             // Шаг 3: Выполнить запрос SELECT
