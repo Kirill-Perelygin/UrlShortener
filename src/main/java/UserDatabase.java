@@ -78,15 +78,19 @@ public class UserDatabase {
         connection.close();
     }
 
-    public static String getLongUrl(String shortUrl) throws SQLException {
+    public static String getLongUrl(String userUUID, String shortUrl) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
-        PreparedStatement pstmt = connection.prepareStatement("SELECT LONGURL FROM userTable WHERE SHORTURL = ?");
-        pstmt.setString(1, shortUrl);
-        ResultSet rs = pstmt.executeQuery();
-        String longUrl1 = "";
-        while (rs.next()){
-            String longUrl = rs.getString("LONGURL");
-            longUrl1 = longUrl;
+        String longUrl1 = null;
+        try (PreparedStatement pstmt = connection.prepareStatement("SELECT LONGURL FROM userTable WHERE SHORTURL = ? AND UUID = ?")) {
+            pstmt.setString(1, shortUrl);
+            pstmt.setString(2, userUUID);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String longUrl = rs.getString("LONGURL");
+                longUrl1 = longUrl;
+            }
+        }
+        catch (SQLException | RuntimeException e) {
         }
         return longUrl1;
     }

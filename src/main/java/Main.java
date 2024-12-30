@@ -35,9 +35,9 @@ public class Main {
                             if (UserDatabase.checkUserExistance(userUUID)) {
                                 isBoolean = true;
                                 System.out.println("С вовзращением!");
-                                System.out.println("Что хотите сделать?");
                                 while (isBoolean) {
-                                    System.out.println("1. Введу ранее добавленную ссылку");
+                                System.out.println("Что хотите сделать?");
+                                    System.out.println("1. Хочу перейти по ранее добавленной ссылке");
                                     System.out.println("2. Мне нужно сгенерировать ссылку");
                                     System.out.println("3. Хочу узнать все свои ссылки");
                                     System.out.println("4. Удалить ранее сгенерированную ссылку");
@@ -48,7 +48,11 @@ public class Main {
                                         case (1): {
                                             System.out.println("Введите ранее выданную короткую ссылку");
                                             shortUrl = scanner.next();
-                                            longUrl = UserDatabase.getLongUrl(shortUrl);
+                                            longUrl = UserDatabase.getLongUrl(userUUID, shortUrl);
+                                            if (longUrl == null) {
+                                                System.out.println("У пользователя нет такой короткой ссылки");
+                                                continue;
+                                            }
                                             UserURLs.visitShortUrl(longUrl);
                                             UserDatabase.counterPlus(shortUrl);
                                             UserDatabase.getConter(shortUrl);
