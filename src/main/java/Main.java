@@ -1,8 +1,5 @@
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.Scanner;
-import java.util.Date;
-
 
 public class Main {
 
