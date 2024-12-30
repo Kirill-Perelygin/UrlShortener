@@ -82,6 +82,26 @@ public class Main {
                                                 }
                                                 default: ;
                                             }
+                                            System.out.println("Вы хотите установить количество дней для хранения ссылки?");
+                                            System.out.println("1. Да");
+                                            System.out.println("2. Нет");
+                                            int daysCounterValuer = scanner.nextInt();
+                                            switch (daysCounterValuer) {
+                                                case (1): {
+                                                    System.out.println("Введите желаемое количество дней");
+                                                    int daysValue = scanner.nextInt();
+                                                    // TODO добавить метод для изменения переходов по дням + новый столбец в таблице
+                                                    break;
+                                                }
+                                            case (2): {
+                                                System.out.println("Устанавливаем дефолтное количество переходов");
+                                                Configure.loadConfig();
+                                                counterValue = Configure.getIntValue("default_interval_value"); // TODO придумать количество переходов в конфиге
+                                                // TODO добавить метод для изменения переходов по дням + новый столбец в таблице
+                                                break;
+                                            }
+                                            }
+
                                             UserDatabase.addingUserInfoToTheTable(userUUID, longUrl, shortUrl, counterValue);
                                             break;
                                         }
