@@ -42,6 +42,7 @@ public class UserDatabase {
 
     public static void addingUserInfoToTheTable (String uuid, String longUrl, String shortUrl, int counter) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         PreparedStatement pstmt = connection.prepareStatement("INSERT INTO userTable (UUID, LONGURL, SHORTURL, COUNTER) VALUES (?, ?, ?, ?)");
         pstmt.setString(1, uuid);
         pstmt.setString(2, longUrl);
@@ -80,11 +81,13 @@ public class UserDatabase {
         PreparedStatement pstmt = connection.prepareStatement("SELECT LONGURL FROM userTable WHERE SHORTURL = ?");
         pstmt.setString(1, shortUrl);
         ResultSet rs = pstmt.executeQuery();
+        String longUrl1 = "";
         while (rs.next()){
             String longUrl = rs.getString("LONGURL");
-            System.out.println(longUrl + " это длинная ссылка");
+            System.out.println(longUrl  + " это длинная ссылка");
+            longUrl1 = longUrl;
         }
-        return shortUrl;
+        return longUrl1;
     }
 
     public static void counterPlus(String shortUrl) throws SQLException {
