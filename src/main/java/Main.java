@@ -55,7 +55,7 @@ public class Main {
                                                 break;
                                             }
                                             UserURLs.visitShortUrl(longUrl);
-                                            UserDatabase.counterMinus(shortUrl);
+                                          //  UserDatabase.counterMinus(shortUrl);
                                           //  UserDatabase.deleteMaxCounterRows();
                                             break;
                                         }
@@ -77,7 +77,7 @@ public class Main {
                                                 case (2): {
                                                     System.out.println("Устанавливаем дефолтное количество переходов");
                                                     Configure.loadConfig();
-                                                    counterValue = Configure.getIntValue("default_counter"); // TODO придумать количество переходов в конфиге
+                                                    counterValue = Configure.getIntValue("default_counter");
                                                     UserURLs.getCounter(counterValue);
                                                     break;
                                                 }
@@ -91,14 +91,12 @@ public class Main {
                                                 case (1): {
                                                     System.out.println("Введите желаемое количество дней");
                                                      daysValue = scanner.nextInt();
-                                                    // TODO добавить метод для изменения переходов по дням + новый столбец в таблице
                                                     break;
                                                 }
                                                 case (2): {
                                                     System.out.println("Устанавливаем дефолтное количество переходов");
                                                     Configure.loadConfig();
-                                                    daysValue = Configure.getIntValue("default_interval_value"); // TODO придумать количество переходов в конфиге
-                                                    // TODO добавить метод для изменения переходов по дням + новый столбец в таблице
+                                                    daysValue = Configure.getIntValue("default_interval_value");
                                                     break;
                                                 }
                                                 default: ;

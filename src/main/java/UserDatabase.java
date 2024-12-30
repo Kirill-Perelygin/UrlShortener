@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Properties;
 
 public class UserDatabase {
 
@@ -99,20 +100,23 @@ public class UserDatabase {
         return longUrl1;
     }
 
-    public static void counterMinus(String shortUrl) throws SQLException {
+    /* public static void counterMinus(String shortUrl) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
         PreparedStatement pstmt = connection.prepareStatement("UPDATE userTable SET COUNTER = COUNTER - 1 WHERE SHORTURL = ?");
         pstmt.setString(1, shortUrl);
         pstmt.executeUpdate();
-    }
+    } */
 
     public static int getConter(String shortUrl) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
         Statement statement = connection.createStatement();
-        PreparedStatement pstmt = connection.prepareStatement("SELECT COUNTER FROM userTable WHERE SHORTURL = ?");
+        PreparedStatement pstmt = connection.prepareStatement("UPDATE userTable SET COUNTER = COUNTER - 1 WHERE SHORTURL = ?");
         pstmt.setString(1, shortUrl);
+        pstmt.executeUpdate();
+        PreparedStatement pstmt2 = connection.prepareStatement("SELECT COUNTER FROM userTable WHERE SHORTURL = ?");
+        pstmt2.setString(1, shortUrl);
 
-        ResultSet rs = pstmt.executeQuery();
+        ResultSet rs = pstmt2.executeQuery();
         int counterVal = 0;
         while (rs.next()) {
             int counterValuer = rs.getInt("COUNTER");
