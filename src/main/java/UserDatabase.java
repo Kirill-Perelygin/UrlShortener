@@ -107,6 +107,7 @@ public class UserDatabase {
         Statement statement = connection.createStatement();
         PreparedStatement pstmt = connection.prepareStatement("SELECT COUNTER FROM userTable WHERE SHORTURL = ?");
         pstmt.setString(1, shortUrl);
+
         ResultSet rs = pstmt.executeQuery();
         int counterVal = 0;
         while (rs.next()) {
@@ -114,7 +115,9 @@ public class UserDatabase {
             System.out.println("Количество переходов равняется " + counterValuer);
             counterVal = counterValuer;
             if (counterVal == 0) {
+                deleteMaxCounterRows();
                 System.out.println("Вы достигли лимита переходов. Короткая ссылка будет удалена");
+
             }
         };
         return counterVal;
@@ -124,7 +127,7 @@ public class UserDatabase {
         Boolean isTrue = true;
         if (isTrue) {
             Connection connection = DriverManager.getConnection(url, user, password);
-            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE CREATIONDATE > NOW() - INTERVAL 1 MINUTE");
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE CREATIONDATE < NOW() - INTERVAL 1 MINUTE");
             pstmt.executeUpdate();
             connection.close();
             return isTrue = true;
@@ -132,12 +135,12 @@ public class UserDatabase {
         else return isTrue = false;
     }
 
-    /* public static void deleteMaxCounterRows() throws SQLException {
+    public static void deleteMaxCounterRows() throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
-        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE COUNTER >= 5");
+        PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE COUNTER = 0");
         pstmt.executeUpdate();
         connection.close();
-    } */
+    }
 
     // TODO подумать о логике того, что если сгенерированная строка уже есть есть в таблице, то сгенерировать её снова -> вероятно через IF - ELSE или через WHILE с boolean
     // TODO значением
