@@ -179,8 +179,9 @@ public class UserDatabase {
             PreparedStatement pstm1 = connection.prepareStatement("SELECT DAYSTOEXPIRE FROM userTable WHERE SHORTURL = ?");
             pstm1.setString(1, shortUrl);
             ResultSet rs = pstm1.executeQuery();
-            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE CREATIONDATE < NOW() - INTERVAL" + rs + "DAY");
-            pstmt.setString(1, String.valueOf(rs));
+            int number = rs.getInt("DAYSTOEXPIRE");
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE CREATIONDATE < NOW() - INTERVAL ? DAY");
+            pstmt.setString(1, String.valueOf(number));
             pstmt.executeUpdate();
             connection.close();
             return isTrue = true;
