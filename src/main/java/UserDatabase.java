@@ -59,14 +59,12 @@ public class UserDatabase {
             pstmt.setString(1, userUUID);
 
             ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                String shortUrl = rs.getString("SHORTURL");
-                System.out.println("Доступные вам короткие ссылки:");
-                for (int i = 0; ;){
-                    System.out.println(i + shortUrl);
+            System.out.println("Доступные вам короткие ссылки:");
+        int i = 1;
+        while (rs.next()) {
+                String  shortUrl = rs.getString("SHORTURL");
+                    System.out.println(i + "." + "  " + shortUrl);
                     i++;
-                }
-
         }
     }
 
