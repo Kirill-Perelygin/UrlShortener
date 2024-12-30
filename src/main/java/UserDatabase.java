@@ -43,14 +43,15 @@ public class UserDatabase {
     }
 
 
-    public static void addingUserInfoToTheTable (String uuid, String longUrl, String shortUrl, int counter) throws SQLException {
+    public static void addingUserInfoToTheTable (String uuid, String longUrl, String shortUrl, int counter, int daysValue) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        PreparedStatement pstmt = connection.prepareStatement("INSERT INTO userTable (UUID, LONGURL, SHORTURL, COUNTER) VALUES (?, ?, ?, ?)");
+        PreparedStatement pstmt = connection.prepareStatement("INSERT INTO userTable (UUID, LONGURL, SHORTURL, COUNTER, DAYSTOEXPIRE) VALUES (?, ?, ?, ?, ?)");
         pstmt.setString(1, uuid);
         pstmt.setString(2, longUrl);
         pstmt.setString(3, shortUrl);
         pstmt.setString(4, String.valueOf(counter));
+        pstmt.setString(5, String.valueOf(daysValue));
         pstmt.executeUpdate();
         connection.close();
     }

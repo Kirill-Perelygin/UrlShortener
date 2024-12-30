@@ -7,6 +7,7 @@ public class Main {
     public static int choiceValue;
     public static int secondChoiceValue;
     public static int counterValue;
+    public static int daysValue;
     public static String userName;
     public static String userUUID;
     public static String longUrl;
@@ -89,20 +90,21 @@ public class Main {
                                             switch (daysCounterValuer) {
                                                 case (1): {
                                                     System.out.println("Введите желаемое количество дней");
-                                                    int daysValue = scanner.nextInt();
+                                                     daysValue = scanner.nextInt();
                                                     // TODO добавить метод для изменения переходов по дням + новый столбец в таблице
                                                     break;
                                                 }
-                                            case (2): {
-                                                System.out.println("Устанавливаем дефолтное количество переходов");
-                                                Configure.loadConfig();
-                                                counterValue = Configure.getIntValue("default_interval_value"); // TODO придумать количество переходов в конфиге
-                                                // TODO добавить метод для изменения переходов по дням + новый столбец в таблице
-                                                break;
+                                                case (2): {
+                                                    System.out.println("Устанавливаем дефолтное количество переходов");
+                                                    Configure.loadConfig();
+                                                    daysValue = Configure.getIntValue("default_interval_value"); // TODO придумать количество переходов в конфиге
+                                                    // TODO добавить метод для изменения переходов по дням + новый столбец в таблице
+                                                    break;
+                                                }
+                                                default: ;
                                             }
-                                            }
-
-                                            UserDatabase.addingUserInfoToTheTable(userUUID, longUrl, shortUrl, counterValue);
+                                            UserDatabase.addingUserInfoToTheTable(userUUID, longUrl, shortUrl, counterValue, daysValue);
+                                            System.out.println("Ссылка успешно сгенерирована");
                                             break;
                                         }
                                         case (3): {
