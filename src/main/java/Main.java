@@ -49,7 +49,7 @@ public class Main {
                                             System.out.println("Введите ранее выданную короткую ссылку");
                                             shortUrl = scanner.next();
                                             longUrl = UserDatabase.getLongUrl(userUUID, shortUrl);
-                                            boolean result = UserDatabase.deleteBasedOnTimestamp();
+                                            boolean result = UserDatabase.deleteBasedOnTimestamp(shortUrl);
                                             if (longUrl == null || !result || UserDatabase.getConter(shortUrl) == 0) {
                                                 System.out.println("У пользователя нет такой короткой ссылки или она удалена из-за превышения срока");
                                                 break;

@@ -172,11 +172,15 @@ public class UserDatabase {
         return counterVal;
     }
 
-    public static boolean deleteBasedOnTimestamp() throws SQLException {
+    public static boolean deleteBasedOnTimestamp(String shortUrl) throws SQLException {
         Boolean isTrue = true;
         if (isTrue) {
             Connection connection = DriverManager.getConnection(url, user, password);
-            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE CREATIONDATE < NOW() - INTERVAL 1 MINUTE");
+            PreparedStatement pstm1 = connection.prepareStatement("SELECT DAYSTOEXPIRE FROM userTable WHERE SHORTURL = ?");
+            pstm1.setString(1, shortUrl);
+            ResultSet rs = pstm1.executeQuery();
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE CREATIONDATE < NOW() - INTERVAL" + rs + "DAY");
+            pstmt.setString(1, String.valueOf(rs));
             pstmt.executeUpdate();
             connection.close();
             return isTrue = true;
