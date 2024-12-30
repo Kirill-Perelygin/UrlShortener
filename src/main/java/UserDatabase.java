@@ -11,6 +11,9 @@ public class UserDatabase {
         PreparedStatement pstmt = connection.prepareStatement("INSERT INTO userTable (UUID) VALUES (?)");
         pstmt.setString(1, uuid);
         pstmt.executeUpdate();
+        PreparedStatement pstmt2 = connection.prepareStatement("UPDATE userTable SET CREATIONDATE = NULL WHERE UUID = ?");
+        pstmt2.setString(1, uuid);
+        pstmt2.executeUpdate();
         connection.close();
     }
 
