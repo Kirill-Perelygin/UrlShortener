@@ -14,6 +14,7 @@ public class Main {
     public static Boolean isBoolean2 = true;
 
     public static void main(String[] args) {
+
             System.out.println("Привет! Вы уже является нашим пользователем или вам нужно зарегистрироваться?");
         while (true) {
             isBoolean2 = true;
@@ -46,12 +47,13 @@ public class Main {
                                             System.out.println("Введите ранее выданную короткую ссылку");
                                             shortUrl = scanner.next();
                                             longUrl = UserDatabase.getLongUrl(userUUID, shortUrl);
-                                            if (longUrl == null) {
-                                                System.out.println("У пользователя нет такой короткой ссылки");
-                                                continue;
+                                            boolean result = UserDatabase.deleteBasedOnTimestamp();
+                                            if (longUrl == null || result == false) {
+                                                System.out.println("У пользователя нет такой короткой ссылки или она удалена из-за превышения срока");
+                                                break;
                                             }
                                             UserURLs.visitShortUrl(longUrl);
-                                            UserDatabase.counterPlus(shortUrl);
+                                            UserDatabase.counterMinus(shortUrl);
                                             UserDatabase.getConter(shortUrl);
                                           //  UserDatabase.deleteMaxCounterRows();
                                             break;

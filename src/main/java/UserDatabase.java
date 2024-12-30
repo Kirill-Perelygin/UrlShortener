@@ -95,9 +95,9 @@ public class UserDatabase {
         return longUrl1;
     }
 
-    public static void counterPlus(String shortUrl) throws SQLException {
+    public static void counterMinus(String shortUrl) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
-        PreparedStatement pstmt = connection.prepareStatement("UPDATE userTable SET COUNTER = COUNTER + 1 WHERE SHORTURL = ?");
+        PreparedStatement pstmt = connection.prepareStatement("UPDATE userTable SET COUNTER = COUNTER - 1 WHERE SHORTURL = ?");
         pstmt.setString(1, shortUrl);
         pstmt.executeUpdate();
     }
@@ -119,6 +119,18 @@ public class UserDatabase {
             }
         };
         return counterVal;
+    }
+
+    public static boolean deleteBasedOnTimestamp() throws SQLException {
+        Boolean isTrue = true;
+        if (isTrue) {
+            Connection connection = DriverManager.getConnection(url, user, password);
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE CREATIONDATE < NOW() - INTERVAL 1 MINUTE");
+            pstmt.executeUpdate();
+            connection.close();
+            return isTrue = true;
+        }
+        else return isTrue = false;
     }
 
     /* public static void deleteMaxCounterRows() throws SQLException {
