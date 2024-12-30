@@ -97,6 +97,25 @@ public class UserDatabase {
         pstmt.executeUpdate();
     }
 
+    public static int getConter(String shortUrl) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, user, password);
+        Statement statement = connection.createStatement();
+        PreparedStatement pstmt = connection.prepareStatement("SELECT COUNTER FROM userTable WHERE SHORTURL = ?");
+        pstmt.setString(1, shortUrl);
+
+        ResultSet rs = pstmt.executeQuery();
+        int counterVal = 0;
+        while (rs.next()) {
+            int counterValuer = rs.getInt("COUNTER");
+            System.out.println("Количество переходов равняется " + counterValuer);
+            counterVal = counterValuer;
+            if (counterVal >= 5) {
+                System.out.println("Вы достигли лимита переходов. Короткая ссылка будет удалена");
+            }
+        };
+        return counterVal;
+    }
+
     public static void deleteMaxCounterRows() throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
         PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE COUNTER >= 5");

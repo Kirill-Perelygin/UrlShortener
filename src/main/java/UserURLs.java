@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class UserURLs {
 
-    public static final String fixURL = "clck.ru/";
+    public static final String fixURL = "https://clck.ru/";
     public static String shortUrl;
 
     // TODO придумать метод, который будет рандомно генерировать 6 знаков UPPERlowerCaSe+numbers -> https://www.geeksforgeeks.org/generate-random-string-of-given-size-in-java/

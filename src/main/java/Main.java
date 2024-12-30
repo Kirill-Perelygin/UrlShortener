@@ -44,11 +44,13 @@ public class Main {
                                     secondChoiceValue = scanner.nextInt();
                                     switch (secondChoiceValue) {
                                         case (1): {
+                                            System.out.println("Введите ранее выданную короткую ссылку");
                                             shortUrl = scanner.next();
                                             longUrl = UserDatabase.getLongUrl(shortUrl);
                                             UserURLs.visitShortUrl(longUrl);
                                             UserDatabase.counterPlus(shortUrl);
                                             // TODO добавить метод, который будет брать новый каунтер и выводить его как строку -> ваше количетсво переводов или типа того
+                                            UserDatabase.getConter(shortUrl);
                                             UserDatabase.deleteMaxCounterRows();
 
                                             // TODO Метод, который получает из таблицы значение каунтера.
