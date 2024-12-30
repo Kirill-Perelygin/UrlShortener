@@ -22,6 +22,7 @@ public class Main {
             isBoolean2 = true;
             System.out.println("1. Я пользователь - введу UUID");
             System.out.println("2. Я новенький - зарегистрируйте меня");
+            System.out.println("3. Завершить работу программы");
             Scanner scanner = new Scanner(System.in);
             choiceValue = scanner.nextInt();
             while (isBoolean2) {
@@ -41,6 +42,7 @@ public class Main {
                                     System.out.println("3. Хочу узнать все свои ссылки");
                                     System.out.println("4. Удалить ранее сгенерированную ссылку");
                                     System.out.println("5. Хочу назад");
+                                    System.out.println("6. Завершить работу программы");
                                     secondChoiceValue = scanner.nextInt();
                                     switch (secondChoiceValue) {
                                         case (1): {
@@ -49,11 +51,8 @@ public class Main {
                                             longUrl = UserDatabase.getLongUrl(shortUrl);
                                             UserURLs.visitShortUrl(longUrl);
                                             UserDatabase.counterPlus(shortUrl);
-                                            // TODO добавить метод, который будет брать новый каунтер и выводить его как строку -> ваше количетсво переводов или типа того
                                             UserDatabase.getConter(shortUrl);
                                             UserDatabase.deleteMaxCounterRows();
-
-                                            // TODO Метод, который получает из таблицы значение каунтера.
                                             break;
                                         }
                                         case (2): {
@@ -78,6 +77,9 @@ public class Main {
                                             isBoolean = false;
                                             break;
                                         }
+                                        case (6): {
+                                            System.exit(0);
+                                        }
                                     }
                                 }
                             } else {
@@ -92,7 +94,6 @@ public class Main {
                     }
                     // TODO Проверка на наличие записи теперь есть, но даже при наличии ошибки идем дальше по процессу -> нужно понять как этого избежать
 
-
                     case (2): {
                         String userUUID = User.createUserUuid(userName);
                         try {
@@ -102,6 +103,10 @@ public class Main {
                         }
                         isBoolean2 = false;
                         break;
+                    }
+
+                    case (3): {
+                        System.exit(0);
                     }
                     default:
 

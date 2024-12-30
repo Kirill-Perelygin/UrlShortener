@@ -60,9 +60,13 @@ public class UserDatabase {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                String foundUuid = rs.getString("id");
                 String shortUrl = rs.getString("SHORTURL");
-                System.out.println("Id ссылки - " + foundUuid + " а ссылка - " + shortUrl);
+                System.out.println("Доступные вам короткие ссылки:");
+                for (int i = 0; ;){
+                    System.out.println(i + shortUrl);
+                    i++;
+                }
+
         }
     }
 
@@ -84,7 +88,6 @@ public class UserDatabase {
         String longUrl1 = "";
         while (rs.next()){
             String longUrl = rs.getString("LONGURL");
-            System.out.println(longUrl  + " это длинная ссылка");
             longUrl1 = longUrl;
         }
         return longUrl1;
