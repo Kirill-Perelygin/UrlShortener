@@ -14,15 +14,17 @@ public class Main {
     public static String longUrl;
     public static String shortUrl;
     public static Boolean isBoolean = true;
+    public static Boolean isBoolean2 = true;
 
     public static void main(String[] args) {
             System.out.println("Привет! Вы уже является нашим пользователем или вам нужно зарегистрироваться?");
         while (true) {
+            isBoolean2 = true;
             System.out.println("1. Я пользователь - введу UUID");
             System.out.println("2. Я новенький - зарегистрируйте меня");
             Scanner scanner = new Scanner(System.in);
             choiceValue = scanner.nextInt();
-            while (true) {
+            while (isBoolean2) {
                 switch (choiceValue) {
                     case (1): {
                         System.out.println("Введи ранее выданный тебе UUID");
@@ -30,9 +32,9 @@ public class Main {
                         // TODO Придумать регуляроное выражение, потому что сейчас это строка и пускает по любому символу
                         try {
                             if (UserDatabase.checkUserExistance(userUUID)) {
+                                isBoolean = true;
                                 System.out.println("С вовзращением!");
                                 System.out.println("Что хотите сделать?");
-                                isBoolean = true;
                                 while (isBoolean) {
                                     System.out.println("1. Введу ранее добавленную ссылку");
                                     System.out.println("2. Мне нужно сгенерировать ссылку");
@@ -83,6 +85,7 @@ public class Main {
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
+                        isBoolean2 = false;
                         break;
                     }
                     // TODO Проверка на наличие записи теперь есть, но даже при наличии ошибки идем дальше по процессу -> нужно понять как этого избежать
@@ -95,9 +98,11 @@ public class Main {
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
+                        isBoolean2 = false;
                         break;
                     }
                     default:
+
                         ;
                 }
 
