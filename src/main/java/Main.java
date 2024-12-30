@@ -53,14 +53,32 @@ public class Main {
                                             UserURLs.visitShortUrl(longUrl);
                                             UserDatabase.counterPlus(shortUrl);
                                             UserDatabase.getConter(shortUrl);
-                                            UserDatabase.deleteMaxCounterRows();
+                                          //  UserDatabase.deleteMaxCounterRows();
                                             break;
                                         }
                                         case (2): {
                                             System.out.println("Введите ссылку, которую нужно сократить");
                                             longUrl = scanner.next();
                                             shortUrl = UserURLs.createShortUrl(longUrl);
-                                            counterValue = UserURLs.getCounter(0);
+                                            System.out.println("Вы хотите установить количество переходов?");
+                                            System.out.println("1. Да");
+                                            System.out.println("2. Нет");
+                                            int counterNumberValue = scanner.nextInt();
+                                            switch (counterNumberValue) {
+                                                case (1): {
+                                                    System.out.println("Введите желаемое количество переходов");
+                                                    counterValue = scanner.nextInt();
+                                                    UserURLs.getCounter(counterValue);
+                                                    break;
+                                                }
+                                                case (2): {
+                                                    System.out.println("Устанавливаем дефолтное количество переходов");
+                                                    counterValue = 5; // TODO придумать количество переходов в конфиге
+                                                    UserURLs.getCounter(counterValue);
+                                                    break;
+                                                }
+                                                default: ;
+                                            }
                                             UserDatabase.addingUserInfoToTheTable(userUUID, longUrl, shortUrl, counterValue);
                                             break;
                                         }

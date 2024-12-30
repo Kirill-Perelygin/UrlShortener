@@ -114,19 +114,19 @@ public class UserDatabase {
             int counterValuer = rs.getInt("COUNTER");
             System.out.println("Количество переходов равняется " + counterValuer);
             counterVal = counterValuer;
-            if (counterVal >= 5) {
+            if (counterVal >= counterValuer) {
                 System.out.println("Вы достигли лимита переходов. Короткая ссылка будет удалена");
             }
         };
         return counterVal;
     }
 
-    public static void deleteMaxCounterRows() throws SQLException {
+    /* public static void deleteMaxCounterRows() throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
         PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE COUNTER >= 5");
         pstmt.executeUpdate();
         connection.close();
-    }
+    } */
 
     // TODO подумать о логике того, что если сгенерированная строка уже есть есть в таблице, то сгенерировать её снова -> вероятно через IF - ELSE или через WHILE с boolean
     // TODO значением
