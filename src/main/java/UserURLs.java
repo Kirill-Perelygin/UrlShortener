@@ -11,7 +11,13 @@ public class UserURLs {
 
     // TODO придумать метод, который будет рандомно генерировать 6 знаков UPPERlowerCaSe+numbers -> https://www.geeksforgeeks.org/generate-random-string-of-given-size-in-java/
     public static String createShortUrl(String longUrl) {
-        shortUrl = fixURL + 357;
+        Random rand = new Random();
+        String str = rand.ints(48, 123)
+                .filter(num -> (num<58 || num>64) && (num<91 || num>96))
+                .limit(5)
+                .mapToObj(c -> (char)c).collect(StringBuffer::new, StringBuffer::append, StringBuffer::append)
+                .toString();
+        shortUrl = fixURL + str;
         System.out.println("Ваша сокращенная ссылка равняется " + shortUrl);
         return shortUrl;
     }
