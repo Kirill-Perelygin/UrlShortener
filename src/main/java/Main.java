@@ -48,13 +48,12 @@ public class Main {
                                             shortUrl = scanner.next();
                                             longUrl = UserDatabase.getLongUrl(userUUID, shortUrl);
                                             boolean result = UserDatabase.deleteBasedOnTimestamp();
-                                            if (longUrl == null || result == false) {
+                                            if (longUrl == null || !result || UserDatabase.getConter(shortUrl) == 0) {
                                                 System.out.println("У пользователя нет такой короткой ссылки или она удалена из-за превышения срока");
                                                 break;
                                             }
                                             UserURLs.visitShortUrl(longUrl);
                                             UserDatabase.counterMinus(shortUrl);
-                                            UserDatabase.getConter(shortUrl);
                                           //  UserDatabase.deleteMaxCounterRows();
                                             break;
                                         }

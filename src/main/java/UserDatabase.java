@@ -107,14 +107,13 @@ public class UserDatabase {
         Statement statement = connection.createStatement();
         PreparedStatement pstmt = connection.prepareStatement("SELECT COUNTER FROM userTable WHERE SHORTURL = ?");
         pstmt.setString(1, shortUrl);
-
         ResultSet rs = pstmt.executeQuery();
         int counterVal = 0;
         while (rs.next()) {
             int counterValuer = rs.getInt("COUNTER");
             System.out.println("Количество переходов равняется " + counterValuer);
             counterVal = counterValuer;
-            if (counterVal >= counterValuer) {
+            if (counterVal == 0) {
                 System.out.println("Вы достигли лимита переходов. Короткая ссылка будет удалена");
             }
         };
@@ -125,7 +124,7 @@ public class UserDatabase {
         Boolean isTrue = true;
         if (isTrue) {
             Connection connection = DriverManager.getConnection(url, user, password);
-            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE CREATIONDATE < NOW() - INTERVAL 1 MINUTE");
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM userTable WHERE CREATIONDATE > NOW() - INTERVAL 1 MINUTE");
             pstmt.executeUpdate();
             connection.close();
             return isTrue = true;
