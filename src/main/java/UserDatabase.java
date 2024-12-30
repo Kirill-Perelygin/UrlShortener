@@ -7,6 +7,49 @@ public class UserDatabase {
     public static final String user = "user";
     public static final String password = "user";
 
+    public static void databaseAndTableCreation() throws ClassNotFoundException, SQLException {
+        try {
+            // Загрузка драйвера MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Подключение к серверу без указания конкретной базы данных
+            Connection connection = DriverManager.getConnection(url, user, password);
+
+            // Создание новой базы данных
+            String createDatabaseQuery = "CREATE DATABASE IF NOT EXISTS urlshortenerdb;";
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(createDatabaseQuery);
+            System.out.println("База данных успешно создана.");
+
+            // Переключение контекста на созданную базу данных
+            connection.setCatalog("urlshortenerdb");
+
+            // Создание таблицы в новой базе данных
+            String createTableQuery = "CREATE TABLE IF NOT EXISTS userTable (" +
+                    "id INT AUTO_INCREMENT PRIMARY KEY," +
+                    "UUID VARCHAR(255)," +
+                    "LONGURL VARCHAR(255)," +
+                    "SHORTURL VARCHAR(255)," +
+                    "COUNTER INT," +
+                    "CREATIONDATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
+                    "DAYSTOEXPIRE INT," +
+                    ");";
+            statement.executeUpdate(createTableQuery);
+            System.out.println("Таблица успешно создана.");
+
+            // Закрытие соединения
+            statement.close();
+            connection.close();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Драйвер MySQL не найден.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Ошибка при создании базы данных или таблицы.");
+            e.printStackTrace();
+        }
+    }
+
+
     public static void addUserToTheTable(String uuid) throws SQLException {
         Connection connection = DriverManager.getConnection(url, user, password);
         PreparedStatement pstmt = connection.prepareStatement("INSERT INTO userTable (UUID) VALUES (?)");
@@ -157,8 +200,14 @@ public class UserDatabase {
 
 
 
-    public static void main(String[] args) throws SQLException {
-
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        try {
+            databaseAndTableCreation();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     /*  Connection connection = DriverManager.getConnection(url, user, password);
 
             // Шаг 3: Выполнить запрос SELECT
