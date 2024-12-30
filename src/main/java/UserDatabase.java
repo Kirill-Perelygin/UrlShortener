@@ -116,8 +116,6 @@ public class UserDatabase {
             counterVal = counterValuer;
             if (counterVal == 0) {
                 deleteMaxCounterRows();
-                System.out.println("Вы достигли лимита переходов. Короткая ссылка будет удалена");
-
             }
         };
         return counterVal;

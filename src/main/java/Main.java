@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -74,7 +75,8 @@ public class Main {
                                                 }
                                                 case (2): {
                                                     System.out.println("Устанавливаем дефолтное количество переходов");
-                                                    counterValue = 5; // TODO придумать количество переходов в конфиге
+                                                    Configure.loadConfig();
+                                                    counterValue = Configure.getIntValue("default_counter"); // TODO придумать количество переходов в конфиге
                                                     UserURLs.getCounter(counterValue);
                                                     break;
                                                 }
@@ -107,6 +109,8 @@ public class Main {
                             }
                             ;
                         } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                         isBoolean2 = false;
